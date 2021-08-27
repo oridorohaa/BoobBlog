@@ -1,0 +1,96 @@
+<html>
+  <head>
+        <link rel="icon" href="/img/icon.png" />
+
+    {{! <div style="background-color: teal; padding:50px"></div> }}
+    <div class="topnav" style="height:100%;">
+      <div style="margin:30px">
+        <a
+          class="active topnav_home"
+          href="/home"
+          style="margin-right:40px"
+        >Home</a>
+      </div>
+      <div style="margin:30px">
+        <a class="topnav_posts" href="/allPosts">Explore</a>
+      </div>
+      <div style="margin:30px">
+        <a class="topnav_about" href="/about">Profile</a>
+      </div>
+      <div style="margin:30px">
+        <a class="topnav_logout" href="/logout">Log out</a>
+      </div>
+      <div style="margin:30px">
+        <a class="topnap_entry" href="/home" style="  color: #fff;background-color:#5e5cbfe3; border-radius: 25px; padding-right:40px; padding-left:40px; margin-top:50px"> Boob It</a>
+      </div>
+    </div>
+    <title>{{user.blog}}</title>
+    <link rel="icon" href="/img/icon.png" />
+    <link rel="stylesheet" href="/css/styles.css" />
+     <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Mansalva"
+    /> 
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div>
+      {{{body}}}
+      <div
+        style="align-items: center  display: flex;"
+        class="photo_entry__bar hidden"
+      >
+        <input />
+        <button>download</button>
+        <button type="submit">submit</button>
+      </div>
+      <form action="/entry" method="POST">
+        <div
+          style="align-items: center  display: flex;"
+          class="entry__bar hidden"
+        >
+          <input
+            name="entry"
+            type="text"
+            placeholder="type here"
+            class="entry__input"
+          />
+          <button type="submit" class="entry__submit">submit</button>
+        </div>
+      </form>
+      {{! <form action="/register" method="POST"> }}
+      {{!-- <div class="options-bar">
+        <div class="options-buttons">
+          <button
+            type="click"
+            id="options-entry"
+            style="border-radius: 25px; padding:17px"
+          >Entry</button>
+          <button
+            type="click"
+            id="options-photo"
+            style="border-radius: 25px; padding:17px "
+          >Photo</button>
+          <button
+            type="click"
+            id="options-video"
+            style="border-radius: 25px; padding:17px"
+          >Video</button>
+        </div> --}}
+        <div>
+          {{!-- <p>boobs</p> --}}
+          <img src="../../img/boobs.jpg"  style="margin-left:450px; margin-top:100px"/>
+        </div>
+      </div>
+    </div>
+    {{! </form> }}
+  </body>
+  <script src="../../js/blog.js"></script>
+  {{! <script scr="/js/index.js"></script> }}
+</html>

@@ -1,0 +1,63 @@
+<div
+  {{! class="center" }}
+  style="height: 100pv;
+   width: 80%;
+    display:flex;"
+>
+  <div
+    class="entry__container"
+    style="border-right: 1px solid#d9d9f7c0;
+  border-left: 1px solid#d9d9f7c0;
+  border-top: 1px solid#d9d9f7c0;
+  border-radius:5 px;
+  margin-left:100px;
+  padding-left: 50px;
+  padding-right: 50px; "
+  >
+
+    {{#each postsObj}}
+      <a href="/entry/{{this._id}}">
+        <div
+          class="entry__each"
+          style="margin: 30px;   border-radius: 5px; background-color:#ebebf7c0;; padding:30px
+         "
+        >
+          <h4 style="font-size:11px;  text-align:left;">
+            @{{this.user.blog}}</h4>
+          <h1 style="font-size: 16px; padding-left:10px">{{this.entry}}</h1>
+          <h4 style="font-size:12px;  text-align:right;">{{this.createdAt}}</h4>
+          {{!-- <h4 style="font-size:12px;  text-align:right;">{{this.blog}}</h4> --}}
+        </div>
+      </a>
+    {{/each}}
+  </div>
+  <div>
+    {{!-- <img src="../img/side_pic.png" style="margin-left:100px" />
+    {{! <img src="../img/boobs.jpg" style="margin-left:100px"> }} --}}
+    <div>
+      <h1
+        style="padding-top:20px; padding-left:100px; padding-right:100px;  font-family: Mansalva, 'Franklin Gothic Medium', 'Arial Narrow', Arial,
+            sans-serif; color: #270547ce"
+      >Boobster Community
+      </h1>
+    </div>
+    <div
+      style="background-image: linear-gradient(to bottom right, #b8b8ccc0, rgb(255, 255, 255)); padding-top:2px; padding-bottom:2px "
+    >
+      {{#each usersObj}}
+        <a href="/userProfile/{{this._id}}">
+          <div
+            class="entry__each"
+            style="margin: 30px;   border-radius: 5px; background-color:#b8b8ccc0;; padding:30px
+         "
+          >
+            <img src="../img/boob_icon.png" style="height: 20px; width:30px" />
+            <h1 style="font-size:17px; padding-left:50px; padding-right:50px  ">
+              @{{this.blog}}
+            </h1>
+          </div>
+        </a>
+      {{/each}}
+    </div>
+  </div>
+</div>

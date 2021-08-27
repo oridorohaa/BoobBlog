@@ -1,0 +1,31 @@
+<div style="display: flex">
+  <div>
+    <div
+      style="margin: 30px;   border-radius: 5px; background-color:#ebebf7c0;; padding:30px; margin-bottom:0px"
+    >
+      <h4
+        style="font-size:12px;  text-align:left;"
+      >@{{currentUserObj.blog}}</h4>
+      <h1 style="font-size: 16px; padding-left:10px">{{entryObj.entry}}</h1>
+      <h4 style="font-size:9px;  text-align:right;">{{entryObj.createdAt}}</h4>
+    </div>
+  </div>
+</div>
+
+<div style="display:flex">
+  <form action="/comment" method="POST">
+    <div style="margin-left:30px">
+      <input type="hidden" name={{entryObj._id}} />
+      <input
+        type="text"
+        name="comment"
+        style="padding-left: 0px; padding-right:90px"
+        placeholder="comment on this boob "
+      />
+    </div>
+    <div>
+      <button type="submit" style="border-radius: 20px; padding:15px">Reply
+      </button>
+    </div>
+  </form>
+</div>

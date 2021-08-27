@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <title>BB Blog</title>
+    <link rel="icon" href="/img/icon.png" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Mansalva"
+    />
+  </head>
+  <body>
+    <img src="/img/boobs_2.jpg" style="float: left" class="img_boob" />
+    <div class="centered-form">
+      <h1
+        style="
+          width: 100vh;
+          font-weight: 900;
+          padding-top: 100px;
+          padding-left: 28px;
+          color: #414088e3;
+          font-size: 65px;
+          font-family: Mansalva, 'Franklin Gothic Medium', 'Arial Narrow', Arial,
+            sans-serif;
+        "
+      >
+        Its Happening Now
+      </h1>
+      <h2
+        style="
+          font-weight: 500;
+          /* padding-top: 200px; */
+          padding-left: 28px;
+          color: #5e5cbfe3;
+          font-size: 30px;
+          font-family: Mansalva, 'Franklin Gothic Medium', 'Arial Narrow', Arial,
+            sans-serif;
+        "
+      >
+        Get Your Friends and Start Boobin'.
+      </h2>
+      <div class="centered-form__box">
+        <h1>BOOB Blog</h1>
+        <button
+          class=""
+          id="register"
+          style="
+            background-image: linear-gradient(
+              to bottom right,
+              #5e5cbfe3,
+              rgb(214, 84, 207)
+            );
+          "
+        >
+          Register
+        </button>
+        <h2 class="register-form hidden">Few things to get you set up:</h2>
+        <form action="startBlog" method="POST" class="register-form hidden">
+          <label>Your Name</label>
+          <input name="name" type="text" placeholder="Name" required />
+          <label>Blog Title</label>
+          <input name="blog" type="text" placeholder="Title" required />
+          <label>Email</label>
+          <input name="email" ,type="text" placeholder="Email" required />
+          <label>New Password</label>
+          <input name="password" type="text" placeholder="Password" required />
+          <button class="button" type="submit">New User Sign Up</button>
+        </form>
+        <button type="submit" class="sign-in__button" style="
+        background-image: linear-gradient(
+          to bottom right,
+          #5e5cbfe3,
+          rgb(214, 84, 207)
+        );
+      "">Sign In</button>
+        <form action="/users/login" method="POST" class="sign-in__form hidden">
+          <label>Email</label>
+          <input name="email" type="text" placeholder="Name" required />
+          <label>Password</label>
+          <input name="password" type="text" placeholder="Password" required />
+          <button type="submit" style="
+          background-image: linear-gradient(
+            to bottom right,
+            #5e5cbfe3,
+            rgb(214, 84, 207)
+          );
+        ">Log In</button>
+        </form>
+      </div>
+    </div>
+  </body>
+  <footer>
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(251, 246, 253);
+        /* padding-bottom: 5px; */
+      "
+    >
+      <div class="footer_buttons">About</div>
+      <div class="footer_buttons">Help Center</div>
+      <div class="footer_buttons">Terms of Service</div>
+      <div class="footer_buttons">Terms of Service</div>
+      <div class="footer_buttons">Privacy Policy</div>
+      <div class="footer_buttons">Brand Resources</div>
+    </div>
+  </footer>
+  <script src="/js/blog.js"></script>
+  <!-- <script scr="/js/index.js"></script> -->
+</html>
