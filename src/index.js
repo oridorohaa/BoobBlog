@@ -58,6 +58,7 @@ hbs.handlebars.registerHelper("debug", function (emberObject) {
 hbs.handlebars.registerHelper("json", function (context) {
   return JSON.stringify(context);
 });
+
 //----------Middlewear function
 const authUser = async (req, res, next) => {
   console.log("auth user");
@@ -150,11 +151,13 @@ app.get("/userProfile/:id", authUser, async (req, res) => {
   const currentUserObj = currentUser.toObject();
 
   const entries = await Entry.find({ owner: _id });
-  entries.map((entry) => {
+  const entriesObj = entries.map((entry) => {
     return entry.toObject();
   });
 
-  res.render("aboutUser", { currentUserObj, entries });
+  console.log(entries);
+
+  res.render("aboutUser", { currentUserObj, entriesObj });
 });
 
 app.get("/about", authUser, async (req, res) => {

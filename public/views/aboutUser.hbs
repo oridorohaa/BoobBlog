@@ -52,7 +52,7 @@
     class="about_posts"
   >
     {{!-- {{user.name}} --}}
-    {{#each myPostsObj}}
+    {{#each entriesObj}}
       <a href="/entry/{{this._id}}">
         <div
           class="post__each"
@@ -60,7 +60,6 @@
          "
         >
           <h4 style="font-size:11px;  text-align:left;">
-            @{{@root.user.blog}}
           </h4>
           <h1 style="font-size: 16px; padding-left:10px">{{this.entry}}
           </h1>
