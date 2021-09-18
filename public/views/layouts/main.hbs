@@ -22,7 +22,7 @@
         <a class="topnav_logout" href="/logout">Log out</a>
       </div>
       <div style="margin:30px">
-        <a class="topnap_entry" href="/home" style="  color: #fff;background-color:#5e5cbfe3; border-radius: 25px; padding-right:40px; padding-left:40px; margin-top:50px"> Boob It</a>
+        <a class="topnap_entry"  onclick="openNav()" href="javascript:void(0)" style=" color: #fff;background-color:#5e5cbfe3; border-radius: 25px; padding-right:40px; padding-left:40px; margin-top:50px"> Boob It</a>
       </div>
     </div>
     <title>{{user.blog}}</title>
@@ -65,25 +65,7 @@
           <button type="submit" class="entry__submit">submit</button>
         </div>
       </form>
-      {{! <form action="/register" method="POST"> }}
-      {{!-- <div class="options-bar">
-        <div class="options-buttons">
-          <button
-            type="click"
-            id="options-entry"
-            style="border-radius: 25px; padding:17px"
-          >Entry</button>
-          <button
-            type="click"
-            id="options-photo"
-            style="border-radius: 25px; padding:17px "
-          >Photo</button>
-          <button
-            type="click"
-            id="options-video"
-            style="border-radius: 25px; padding:17px"
-          >Video</button>
-        </div> --}}
+  
         <div>
           {{!-- <p>boobs</p> --}}
           <img src="../../img/boobs.jpg"  style="margin-left:450px; margin-top:100px"/>
@@ -93,5 +75,16 @@
     {{! </form> }}
   </body>
   <script src="../../js/blog.js"></script>
-  {{! <script scr="/js/index.js"></script> }}
 </html>
+
+
+<div class="overlay" id="myNav">
+   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div class="overlay-content" style="margin: 100px;">
+        <form action="/entry" method="POST">
+        <input name="entry" placeholder="what's boobin" style="padding: 35px;">
+        <button type="submit" style="border-radius:25px; font-size:36px;  margin-left:20px" >Boob</button>
+        {{!-- <img src="../../img/boobs.jpg"> --}}
+        </form>
+     </div>
+</div>

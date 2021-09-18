@@ -34,6 +34,10 @@ const userSchema = new mongoose.Schema(
       trim: true,
       minlength: 7,
     },
+    likes: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Likes",
+    },
     tokens: [
       {
         token: {

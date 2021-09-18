@@ -1,7 +1,8 @@
 <div class="about_wholepage" style="display: flex;">
   <div class="about_photo">
     <img
-      src="../img/boob_icon.png"
+      class="user_profile__photo"
+      src="../img/boob_pic.jpg"
       style="margin:10px; margin-left:50px; margin-right:40px; border-radius:25px"
     />
   </div>
@@ -25,23 +26,7 @@
             sans-serif;"
       > Joined {{currentUserObj.createdAt}}</h2>
     </div>
-    {{!-- <div>
-      {{! change  buttons to <a></a> to add href="/" to go a GET method }}
-      <div style="margin:20px;">
-        <button style="border-radius: 25px; background-color:#7c5cbf94;">Update
-          Password</button>
-      </div>
-      <div style="margin:20px; ">
 
-        <button style="border-radius: 25px; background-color:#7c5cbf94;">Update
-          Email</button>
-      </div>
-      <div style="margin:20px;">
-
-        <button style="border-radius: 25px; background-color:#7c5cbf94;">Blog
-          Name</button>
-      </div>
-    </div> --}}
   </div>
 </div>
 
@@ -55,7 +40,7 @@
     {{#each entriesObj}}
       <a href="/entry/{{this._id}}">
         <div
-          class="post__each"
+          class="profile_entry__each"
           style="margin: 30px; box-shadow: 1px 5px 5px #00000026;  border-radius: 5px; background-color: #ebebf7c0; padding:30px
          "
         >
@@ -63,19 +48,51 @@
           </h4>
           <h1 style="font-size: 16px; padding-left:10px">{{this.entry}}
           </h1>
-          {{!-- <h4 style="font-size:12px;  text-align:right;">{{this.blog}}</h4> --}}
-          <h4 style="font-size:9px;  text-align:right;">{{this.createdAt}}</h4>
+          <div class="entry_bottom_keys" style="display:flex">
+            <h4
+              style="font-size:16px;  text-align:right; color:rgb(186, 168, 186)"
+            >{{this.daySince}}
+              days ago</h4>
+            <a
+              class="buttons heart__button"
+              href="/like/{{this._id}} "
+              style="margin-left:auto"
+            >
+              <img
+                class="heart_img"
+                src="../img/heart_blueGreen.png"
+                style="width:15px; height:15px"
+              />
+            </a>
+            <p
+              style="font-size:10px; color:rgb(97, 95, 102); padding:5px; margin:5px"
+            >{{this.likesCount}}</p>
+            <div style="margin-left:auto; dispay:flex">
+              <a class="buttons comment__button" href="/entry/{{this._id}}">
+                <img
+                  class="comment_img"
+                  src="../img/chat.png"
+                  style="width:15px; height:15px"
+                />
+              </a>
+              <p
+                style="font-size:10px; color:rgb(97, 95, 102); padding:5px; margin:5px"
+              >{{this.commentsCount}}</p>
+            </div>
+            <a
+              class="buttons delete2__button"
+              href="/deletePost/{{this._id}}"
+              style="margin-left:auto"
+            >
+              <img
+                class="delete_2"
+                src="../img/delete2.png"
+                style="width:15px; height:15px"
+              />
+            </a>
+          </div>
         </div>
       </a>
-      {{! <div
-      class="post__each"
-      style="margin: 30px;   box-shadow: 1px 5px 5px #00000026;   border-radius: 5px; background-color:#ebebf7c0; padding:30px
-         "
-    >
-      <h1
-        style="font-size: 16px; padding-left:10px"
-      >ghfjghdfjghdfjgjgfnfjnfjnfjnfjnhfjhnjgnhgjhngj</h1>
-    </div> }}
 
     {{/each}}
   </div>

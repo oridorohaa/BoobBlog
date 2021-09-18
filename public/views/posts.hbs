@@ -19,14 +19,63 @@
       <a href="/entry/{{this._id}}">
         <div
           class="entry__each"
-          style="margin: 30px;   border-radius: 5px; background-color:#ebebf7c0;; padding:30px
+          x
+          style="margin: 30px;   border-radius: 5px; background-color:#ebebf7c0; padding:30px
          "
         >
-          <h4 style="font-size:11px;  text-align:left;">
+          <h4
+            style="font-size:11px;  text-align:left; color:rgb(186, 168, 186)"
+          >
             @{{this.user.blog}}</h4>
           <h1 style="font-size: 16px; padding-left:10px">{{this.entry}}</h1>
-          <h4 style="font-size:12px;  text-align:right;">{{this.createdAt}}</h4>
-          {{!-- <h4 style="font-size:12px;  text-align:right;">{{this.blog}}</h4> --}}
+          <div class="entry_bottom_keys" style="display:flex;">
+            <h4
+              style="font-size:16px;  text-align:right; color:rgb(186, 168, 186)"
+            >{{this.daySince}}
+              days ago</h4>
+            <a
+              class="buttons heart__button"
+              href="/like/{{this._id}} "
+              style="margin-left:auto"
+            >
+              <img
+                class="heart_img"
+                src="../img/heart_blueGreen.png"
+                style="width:15px; height:15px; position:absolute"
+              />
+              <img
+                class="heart_filled_img hidden"
+                src="../img/heart_blueGreen_filled.png"
+                style="width:15px; height:15px; position:absolute"
+              />
+            </a>
+            <p
+              style="font-size:10px; color:rgb(97, 95, 102); padding:5px; margin:5px"
+            >{{this.likesCount}}</p>
+            <div style="margin-left:auto; dispay:flex">
+              <a class="buttons comment__button" href="/entry/{{this._id}}">
+                <img
+                  class="comment_img"
+                  src="../img/chat.png"
+                  style="width:15px; height:15px"
+                />
+              </a>
+              <p
+                style="font-size:10px; color:rgb(97, 95, 102); padding:5px; margin:5px"
+              >{{this.commentsCount}}</p>
+            </div>
+            <a
+              class="buttons delete2__button"
+              href="/deletePost/{{this._id}}"
+              style="margin-left:auto"
+            >
+              <img
+                class="delete_2"
+                src="../img/delete2.png"
+                style="width:15px; height:15px"
+              />
+            </a>
+          </div>
         </div>
       </a>
     {{/each}}
@@ -35,26 +84,55 @@
     {{!-- <img src="../img/side_pic.png" style="margin-left:100px" />
     {{! <img src="../img/boobs.jpg" style="margin-left:100px"> }} --}}
     <div>
-      <h1
+      <h3
         style="padding-top:20px; padding-left:100px; padding-right:100px;  font-family: Mansalva, 'Franklin Gothic Medium', 'Arial Narrow', Arial,
-            sans-serif; color: #270547ce"
+            sans-serif; color: #594868ce; white-space:nowrap; font-weight:700"
       >Boobster Community
-      </h1>
+      </h3>
     </div>
     <div
-      style="background-image: linear-gradient(to bottom right, #b8b8ccc0, rgb(255, 255, 255)); padding-top:2px; padding-bottom:2px "
+      class="allProfiles_container"
+      style="background-color:#e9e9ee; border-radius:30px; margin: 20px"
+      {{! style="background-image: linear-gradient(to bottom right, #e1e1e1c0, rgb(255, 255, 255)); padding-top:2px; padding-bottom:2px; margin-left:15px; " }}
     >
       {{#each usersObj}}
-        <a href="/userProfile/{{this._id}}">
+        <a
+          href="/userProfile/{{this._id}}"
+          class="profile_container"
+          {{! style="dispay:flex;" }}
+        >
           <div
-            class="entry__each"
-            style="margin: 30px;   border-radius: 5px; background-color:#b8b8ccc0;; padding:30px
-         "
+            class="profile__each"
+            style="dispay:flex; border-radius: 30px; background-color:#e9e9ee; padding:10px
+             "
           >
-            <img src="../img/boob_icon.png" style="height: 20px; width:30px" />
-            <h1 style="font-size:17px; padding-left:50px; padding-right:50px  ">
-              @{{this.blog}}
-            </h1>
+            <img
+              class="profile_photo"
+              src="../img/boob_pic.jpg"
+              style="height: 45px; width:45px; border-radius:25px; margin:5px; margin-right:20px"
+            />
+            <div style="height:20px;">
+              <h1
+                style="font-size:16px; padding-left:50px; padding-right:50px; color:#594868ce; font-weight:800  "
+              >{{this.name}}</h1>
+              <h1
+                style="font-size:14px; padding-left:50px; padding-right:50px; color:#32293bce  "
+              >
+                @{{this.blog}}
+              </h1>
+            </div>
+            <a href="/userProfile/{{this._id}}">
+              <div
+                style="background-color: rgba(196, 163, 196, 0.733); 
+                border-radius:25px; height:20px; width:80px;
+                position:relative; margin-left:auto; margin-bottom:15px;
+                padding-bottom: 25px; margin-right:40px"
+              >
+                <p
+                  style="font-size:15px; position:center; margin:0; padding:0; color:whitesmoke; "
+                >Explore</p>
+              </div>
+            </a>
           </div>
         </a>
       {{/each}}

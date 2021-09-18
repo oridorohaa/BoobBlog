@@ -1,31 +1,73 @@
-<div style="display: flex">
-  <div>
+<div
+  class="comment__container"
+  {{! style="border: 1px solid#d9d9f7c0; margin-left:300px; margin-right: 250px; padding-right:0px" }}
+>
+
+  <div class="comment__block" style="display: flex; margin-left:50px">
+
     <div
-      style="margin: 30px;   border-radius: 5px; background-color:#ebebf7c0;; padding:30px; margin-bottom:0px"
+      class="comment__box"
+      style=" border-radius: 5px; background-color:#ebebf7c0;; padding:30px; margin-bottom:10px; margin-left:50px; margin-top:50px"
     >
       <h4
-        style="font-size:12px;  text-align:left;"
+        style="font-size:15px;  text-align:left; color:rgb(186, 168, 186)"
       >@{{currentUserObj.blog}}</h4>
-      <h1 style="font-size: 16px; padding-left:10px">{{entryObj.entry}}</h1>
-      <h4 style="font-size:9px;  text-align:right;">{{entryObj.createdAt}}</h4>
+      <h1 style="font-size: 16px; padding-left:10px; ">{{entryObj.entry}}</h1>
+      <h4
+        style="font-size:11px;  text-align:right; color:rgb(186, 168, 186)"
+      >{{entryObj.daySince}}
+        days ago</h4>
     </div>
-  </div>
-</div>
 
-<div style="display:flex">
-  <form action="/comment" method="POST">
-    <div style="margin-left:30px">
-      <input type="hidden" name={{entryObj._id}} />
-      <input
-        type="text"
-        name="comment"
-        style="padding-left: 0px; padding-right:90px"
-        placeholder="comment on this boob "
-      />
-    </div>
-    <div>
-      <button type="submit" style="border-radius: 20px; padding:15px">Reply
-      </button>
-    </div>
-  </form>
+  </div>
+
+  <div class="comment__list">
+    {{#each allCommentsObj}}
+      <div
+        class="comment__current__box"
+        style="border: 1px solid#d9d9f7c0; display:flex"
+      >
+        <h2 style="font-size: 18px; text-align:left; margin:18px">
+          {{this.comment}}</h2>
+
+        <a
+          class="heart__button"
+          href="javascript:void(0)"
+          style="margin-left:auto"
+        >
+          <img
+            src="../img/heart_blueGreen.png"
+            style="width:15px; height:15px; margin-top:20px; margin-left: auto; margin-right:20px"
+          />
+        </a>
+      </div>
+    {{/each}}
+  </div>
+
+  <div class="comment__form" style="display:flex">
+    <form
+      action="/comment/{{entryObj._id}}"
+      method="POST"
+      style="display: flex;"
+    >
+      <div class="comment__block" style="margin-left:50px">
+        {{!-- <input type="hidden" name={{entryObj._id}} /> --}}
+        <input
+          class="comment__input"
+          type="text"
+          name="comment"
+          placeholder="comment on this boob "
+        />
+      </div>
+      <div class="boobit__button__block" style="margin-left:10px">
+        <button
+          class="boobit__button"
+          type="submit"
+          style="border-radius: 20px; padding:15px margin-left:50px"
+        >boob
+        </button>
+      </div>
+    </form>
+  </div>
+
 </div>

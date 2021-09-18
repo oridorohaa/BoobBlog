@@ -218,40 +218,153 @@ button:disabled {
   border-radius: 25px;
 }
 
-/* Add a color to the active/current link */
-/* .active {
-  background-color: #5e5cbfe3;
-
-  color: white;
-} */
-
-/* .center {
-  /* margin: 100px; */
-/* width: 50%; */
-/* border: 2px solid rgba(78, 82, 78, 0.548); */
-/* padding: 10px; */
-/* } */
-
 .entry__each {
   /* border: 1px solid rgba(78, 82, 78, 0.548); */
   box-shadow: 1px 5px 5px #00000026;
 }
 img {
-  /* border: 1px solid #ddd;
-  border-radius: 4px; */
-  /* padding: 5px; */
   width: 350px;
   float: left;
 }
 
-/* img:hover {
-  /* box-shadow: 0 0 2px 1px rgba(89, 103, 107, 0.5); */
-
 .img_boob {
   height: 90vh;
   width: 55%;
+  opacity: 0.8;
 }
 
 .footer_buttons {
   padding: 20px;
+}
+
+/* The Overlay (background) */
+.overlay {
+  /* Height & width depends on how you want to reveal the overlay (see JS below) */
+  height: 100%;
+  width: 0;
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  background-color: rgb(0, 0, 0); /* Black fallback color */
+  background-color: rgba(0, 0, 0, 0.644); /* Black w/opacity */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+}
+
+.overlay-content {
+  position: relative;
+  top: 25%; /* 25% from the top */
+  width: 50%; /* 100% width */
+  text-align: center; /* Centered text/links */
+  margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
+}
+
+/* The navigation links inside the overlay */
+.overlay a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 36px;
+  color: #818181;
+  display: block; /* Display block instead of inline */
+  transition: 0.3s; /* Transition effects on hover (color) */
+}
+
+/* When you mouse over the navigation links, change their color */
+.overlay a:hover,
+.overlay a:focus {
+  color: #f1f1f1;
+}
+
+.comment__current__box:hover {
+  box-shadow: 0 0 2px 1px rgba(89, 103, 107, 0.5);
+  background-color: rgba(243, 243, 244, 0.988);
+}
+
+.buttons {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.heart__button img {
+  transition: transform 0.3s;
+}
+.heart__button img:hover {
+  transform: scale(2.2);
+  transform-origin: 50% 50%;
+}
+.buttons img {
+  /* opacity: 0;*/
+  transition: transform 0.3s;
+}
+
+.buttons img:hover {
+  transform: scale(2);
+  transform-origin: 50% 50%;
+}
+
+/* .delete__button:hover {
+  opacity: 1;
+} */
+
+.profile__each:hover {
+  background-color: #a5a3a368 !important;
+}
+
+.post__each {
+  height: 122px;
+  width: 830px;
+}
+.comment__box {
+  height: 122px;
+  width: 830px;
+}
+.comment__input {
+  height: 60px;
+  width: 830px;
+}
+.comment__current__box {
+  height: 70px;
+  width: 830px;
+  margin-left: 254px;
+}
+
+.profile_photo {
+  transition: transform 0.3s;
+  opacity: 0.7;
+}
+.profile_photo:hover {
+  transform: scale(1.5);
+  transform-origin: 50% 50%;
+  opacity: 1;
+}
+
+.entry__each:hover {
+  background-color: #e4e4e8c0 !important;
+}
+
+.profile__photo {
+  opacity: 0.7;
+}
+.profile__photo:hover {
+  opacity: 1;
+}
+
+.boobit__button {
+  background-color: #b1b1d7;
+}
+
+.profile_entry__each {
+  width: 830px;
+}
+
+.profile_entry__each:hover {
+  background-color: #e4e4e8c0 !important;
+}
+
+.user_profile__photo {
+  opacity: 0.7;
+}
+.user_profile__photo:hover {
+  opacity: 1;
 }
