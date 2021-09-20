@@ -74,6 +74,29 @@ const authUser = async (req, res, next) => {
   }
 };
 
+//----------------Helper functions-------------
+
+const decoratePost = async (posts, postsObj) => {
+  console.log(posts);
+  console.log(postsObj);
+  //comments count
+  await Promise.all(
+    postsObj.map(async (post) => {
+      const commentsCount = await Comment.find({ entry: post._id }).count();
+      // console.log("This is the Comments count in ALL POSTS:", commentsCount);
+      post.commentsCount = commentsCount;
+    })
+  );
+  //likes count
+  await Promise.all(
+    postsObj.map(async (post) => {
+      const likesCount = await Likes.find({ entry: post._id }).count();
+      post.likesCount = likesCount;
+      //console.log("This is the Likes Count:", likesCount);
+    })
+  );
+};
+
 //--------------------- Routers
 
 const getTimeAgo = (date) => {
@@ -163,10 +186,8 @@ app.get("/entry/:id", authUser, async (req, res) => {
 });
 
 app.get("/allPosts", authUser, async (req, res) => {
-  const posts = await Entry.find().sort({ createdAt: -1 });
-  posts.forEach((post) => {});
-
-  const postsObj = posts.map((post) => post.toObject());
+  let posts = await Entry.find().sort({ createdAt: -1 });
+  let postsObj = posts.map((post) => post.toObject());
 
   postsObj.forEach((post) => {
     const daySince = parseInt(
@@ -176,7 +197,7 @@ app.get("/allPosts", authUser, async (req, res) => {
     return console.log("This is the days ago:", daySince);
   });
 
-  const users = await User.find();
+  const users = await User.find().sort({ createdAt: -1 });
   const usersObj = users.map((user) => user.toObject());
 
   await Promise.all(
@@ -185,23 +206,8 @@ app.get("/allPosts", authUser, async (req, res) => {
       post.user = currentUser.toObject();
     })
   );
-  await Promise.all(
-    postsObj.map(async (post) => {
-      const commentsCount = await Comment.find({ entry: post._id }).count();
-      console.log("This is the Comments count in ALL POSTS:", commentsCount);
-      post.commentsCount = commentsCount;
-      if (commentsCount === 0) {
-        //render nothing
-      }
-    })
-  );
-  await Promise.all(
-    postsObj.map(async (post) => {
-      const likesCount = await Likes.find({ entry: post._id }).count();
-      post.likesCount = likesCount;
-      console.log("This is the Likes Count:", likesCount);
-    })
-  );
+
+  await decoratePost(posts, postsObj);
 
   //---passing all users on the other side of the same page
   res.render("posts", { postsObj, usersObj });
@@ -237,74 +243,41 @@ app.get("/userProfile/:id", authUser, async (req, res) => {
   const currentUser = await User.findById(_id);
   const currentUserObj = currentUser.toObject();
 
-  const entries = await Entry.find({ owner: _id }).sort({ createdAt: -1 });
-  const entriesObj = entries.map((entry) => {
+  let posts = await Entry.find({ owner: _id }).sort({ createdAt: -1 });
+  let postsObj = posts.map((entry) => {
     return entry.toObject();
   });
-  entriesObj.forEach((post) => {
+  postsObj.forEach((post) => {
     const daySince = parseInt(
       (new Date() - new Date(post.createdAt)) / 86400000
     );
     post.daySince = daySince;
   });
 
-  await Promise.all(
-    entriesObj.map(async (post) => {
-      const commentsCount = await Comment.find({ entry: post._id }).count();
-      console.log("This is the Comments count:", commentsCount);
-      post.commentsCount = commentsCount;
-      if (commentsCount === 0) {
-        //render nothing
-      }
-    })
-  );
+  await decoratePost(posts, postsObj);
 
-  await Promise.all(
-    entriesObj.map(async (post) => {
-      const likesCount = await Likes.find({ entry: post._id }).count();
-      post.likesCount = likesCount;
-      console.log("This is the Likes Count:", likesCount);
-    })
-  );
-
-  res.render("aboutUser", { currentUserObj, entriesObj });
+  res.render("aboutUser", { currentUserObj, postsObj });
 });
 
 app.get("/about", authUser, async (req, res) => {
-  const myPosts = await Entry.find({ owner: req.user._id }).sort({
+  let posts = await Entry.find({ owner: req.user._id }).sort({
     createdAt: -1,
   });
+  let postsObj = posts.map((post) => post.toObject());
   const currentUser = await User.findById(req.user._id);
   const currentUserObj = currentUser.toObject();
-  const myPostsObj = myPosts.map((post) => post.toObject());
-  myPostsObj.forEach((post) => {
+  postsObj.forEach((post) => {
     const daySince = parseInt(
       (new Date() - new Date(post.createdAt)) / 86400000
     );
     post.daySince = daySince;
   });
 
-  await Promise.all(
-    myPostsObj.map(async (post) => {
-      const commentsCount = await Comment.find({ entry: post._id }).count();
-      post.commentsCount = commentsCount;
-      if (commentsCount === 0) {
-        //render nothing
-      }
-    })
-  );
-
-  await Promise.all(
-    myPostsObj.map(async (post) => {
-      const likesCount = await Likes.find({ entry: post._id }).count();
-      post.likesCount = likesCount;
-      console.log("This is the Likes Count:", likesCount);
-    })
-  );
+  await decoratePost(posts, postsObj);
 
   res.render("aboutMe", {
     user: req.user.toObject(),
-    myPostsObj,
+    postsObj,
     currentUserObj,
   });
 });

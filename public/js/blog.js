@@ -20,6 +20,10 @@ const boobContainer = document.querySelector(".boob_container");
 const boob = document.querySelector(".boob_1");
 //const boobTwo = document.querySelector(".boob_2");
 
+//Heart button
+const heartOutline = document.querySelector(".heart_img");
+const heartFilled = document.querySelector(".heart_filled_img");
+
 var cursor_x = -1;
 var cursor_y = -1;
 document.onmousemove = function (event) {
@@ -155,3 +159,7 @@ const moveTheBoob = () => {
   }
 };
 if (boob) setInterval(moveTheBoob, 20);
+
+heartOutline.addEventListener("click", (e) => {
+  e.preventDefault();
+});

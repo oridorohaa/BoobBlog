@@ -38,16 +38,20 @@
               href="/like/{{this._id}} "
               style="margin-left:auto"
             >
-              <img
-                class="heart_img"
-                src="../img/heart_blueGreen.png"
-                style="width:15px; height:15px; position:absolute"
-              />
-              <img
-                class="heart_filled_img hidden"
-                src="../img/heart_blueGreen_filled.png"
-                style="width:15px; height:15px; position:absolute"
-              />
+              {{#if this.liked}}
+
+                <img
+                  class="heart_filled_img"
+                  src="../img/heart_blueGreen_filled.png"
+                  style="width:15px; height:15px; position:absolute"
+                />
+              {{else}}
+                <img
+                  class="heart_img"
+                  src="../img/heart_blueGreen.png"
+                  style="width:15px; height:15px; position:absolute"
+                />
+              {{/if}}
             </a>
             <p
               style="font-size:10px; color:rgb(97, 95, 102); padding:5px; margin:5px"
