@@ -326,7 +326,7 @@ img {
 .comment__current__box {
   height: 70px;
   width: 830px;
-  margin-left: 254px;
+  margin-left: 275px;
 }
 
 .profile_photo {
@@ -367,4 +367,23 @@ img {
 }
 .user_profile__photo:hover {
   opacity: 1;
+}
+
+.color_button:hover {
+  background-color: #57567ee3 !important;
+}
+.who_are_the_boobs {
+  background-color: #e9e9ff;
+  border-radius: 25px;
+  position: absolute;
+  padding: 0px;
+  top: 10%;
+  left: 20%;
+  margin-top: -50px;
+  margin-left: -50px;
+  display: inline-block;
+
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }

@@ -10,6 +10,21 @@ const Likes = require("./models/likes");
 const Comment = require("./models/comment");
 const cookieParser = require("cookie-parser");
 
+const twilio = require("twilio");
+// import {
+//   TWILIO_ACCOUNT_SID,
+//   TWILIO_AUTH_TOKEN,
+//   YOUR_NUMBER,
+//   YOUR_TWILIO_NUMBER,
+// }  from ("./ middleware/tokens");
+const TWILIO_ACCOUNT_SID = "ACe638b0695b5553718ee571fd0147f313";
+const TWILIO_AUTH_TOKEN = "a948483e97516c5be4aaa4d3fb4f80a5";
+const YOUR_NUMBER = "+19176695628";
+const ASHOT_NUMBER = "+14152179469";
+const SVIT_NUMBER = "+19176696763";
+
+const YOUR_TWILIO_NUMBER = "+19254489114";
+
 const bcrypt = require("bcryptjs");
 const app = express();
 const server = http.createServer(app);
@@ -60,6 +75,14 @@ hbs.handlebars.registerHelper("json", function (context) {
   return JSON.stringify(context);
 });
 
+//Sending Text Message
+// const client = new twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
+// client.messages.create({
+//   to: YOUR_NUMBER,
+//   from: YOUR_TWILIO_NUMBER,
+//   body: "Welcome to the Boob World",
+// });
+
 //----------Middlewear function
 const authUser = async (req, res, next) => {
   email = req.body.email ?? req.cookies["email"];
@@ -76,75 +99,29 @@ const authUser = async (req, res, next) => {
 
 //----------------Helper functions-------------
 
-const decoratePost = async (posts, postsObj) => {
-  console.log(posts);
-  console.log(postsObj);
+const decoratePost = async (postsObj, user_id) => {
   //comments count
   await Promise.all(
     postsObj.map(async (post) => {
-      const commentsCount = await Comment.find({ entry: post._id }).count();
-      // console.log("This is the Comments count in ALL POSTS:", commentsCount);
-      post.commentsCount = commentsCount;
-    })
-  );
-  //likes count
-  await Promise.all(
-    postsObj.map(async (post) => {
-      const likesCount = await Likes.find({ entry: post._id }).count();
-      post.likesCount = likesCount;
-      //console.log("This is the Likes Count:", likesCount);
+      post.commentsCount = await Comment.find({ entry: post._id }).count();
+      post.likesCount = await Likes.find({ entry: post._id }).count();
+      post.liked = await Likes.find({
+        owner: user_id,
+        entry: post._id,
+      });
     })
   );
 };
 
-//--------------------- Routers
-
-const getTimeAgo = (date) => {
-  let string = "";
-  let d = (new Date() - new Date(date)) / 1000;
-  let s = {
-    year: 31536000,
-    month: 2592000,
-    week: 604800,
-    day: 86400,
-    hour: 3600,
-    minute: 60,
-    second: 1,
-  };
-  if (d <= 60) {
-    return `${d} seconds ago `;
-  }
-  if (d <= 360) return string;
-
-  //////--------------------------------------------
-  // let string = "";
-  let millisecondSince = parseInt(new Date() - new Date(entryObj.createdAt));
-  // string += `${millisecondSince} milliseconds ago`;
-  if (millisecondSince <= 1 && millisecondSince > 0)
-    string += `${millisecondSince} millisecond ago`;
-
-  if (millisecondsSince > 1) string += `${millisecondSince} milliseconds ago`;
-  if (millisecondsSince >= 1000) {
-    let secondsAgo = parseInt(
-      (new Date() - new Date(entryObj.createdAt)) / 1000
+//Days ago Function
+const daysAgo = (postsObj) => {
+  postsObj.forEach((post) => {
+    const daySince = parseInt(
+      (new Date() - new Date(post.createdAt)) / 86400000
     );
-    if (secondsAgo <= 1 && secondsAgo > 0) string += `${secondsAgo} second ago`;
-    if (secondsAgo > 1) string += `${secondsAgo} seconds ago`;
-    if (secondsAgo >= 60) {
-      let minuteSince = parseInt(
-        (newDate() - new Date(entryObj.createdAt)) / 60000
-      );
-    }
-  }
-  let hourSince = parseInt(
-    (new Date() - new Date(entryOnj.createdAt)) / 3600000
-  );
-  let daySince = parseInt(
-    (new Date() - new Date(entryObj.createdAt)) / 86400000
-  );
-  // entryObj.daySince = daySince;
-  let monthSince;
-  let yearSince;
+    post.daySince = daySince;
+    return console.log("This is the days ago:", daySince);
+  });
 };
 
 //--------------------------ENTRY routers-------------------
@@ -156,14 +133,17 @@ app.post("/entry", authUser, async (req, res, next) => {
   await entry.save();
 
   const entryObj = entry.toObject();
-  const daySince = parseInt(
-    (new Date() - new Date(entryObj.createdAt)) / 86400000
-  );
-  entryObj.daySince = daySince;
+  // daysAgo(entryObj);
 
   ///////-------------NOTE: work on rendering the new post into the list of posts
   const currentUser = await User.findById(req.user._id);
   const currentUserObj = currentUser.toObject();
+  const client = new twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
+  client.messages.create({
+    to: ASHOT_NUMBER,
+    from: YOUR_TWILIO_NUMBER,
+    body: "Boob Alert - New Post was made",
+  });
   res.render("oneEntry", { entryObj, currentUserObj });
   //   res.render("", { task: task.toObject() });
 });
@@ -175,10 +155,7 @@ app.get("/entry/:id", authUser, async (req, res) => {
   const currentUser = await User.findById(req.user._id);
   const currentUserObj = currentUser.toObject();
 
-  const daySince = parseInt(
-    (new Date() - new Date(entryObj.createdAt)) / 86400000
-  );
-  entryObj.daySince = daySince;
+  // daysAgo(entryObj);
 
   const allComments = await Comment.find({ entry: _id });
   const allCommentsObj = allComments.map((comment) => comment.toObject());
@@ -188,14 +165,6 @@ app.get("/entry/:id", authUser, async (req, res) => {
 app.get("/allPosts", authUser, async (req, res) => {
   let posts = await Entry.find().sort({ createdAt: -1 });
   let postsObj = posts.map((post) => post.toObject());
-
-  postsObj.forEach((post) => {
-    const daySince = parseInt(
-      (new Date() - new Date(post.createdAt)) / 86400000
-    );
-    post.daySince = daySince;
-    return console.log("This is the days ago:", daySince);
-  });
 
   const users = await User.find().sort({ createdAt: -1 });
   const usersObj = users.map((user) => user.toObject());
@@ -207,7 +176,8 @@ app.get("/allPosts", authUser, async (req, res) => {
     })
   );
 
-  await decoratePost(posts, postsObj);
+  daysAgo(postsObj);
+  await decoratePost(postsObj, req.user._id);
 
   //---passing all users on the other side of the same page
   res.render("posts", { postsObj, usersObj });
@@ -247,14 +217,9 @@ app.get("/userProfile/:id", authUser, async (req, res) => {
   let postsObj = posts.map((entry) => {
     return entry.toObject();
   });
-  postsObj.forEach((post) => {
-    const daySince = parseInt(
-      (new Date() - new Date(post.createdAt)) / 86400000
-    );
-    post.daySince = daySince;
-  });
 
-  await decoratePost(posts, postsObj);
+  daysAgo(postsObj);
+  await decoratePost(postsObj, req.user._id);
 
   res.render("aboutUser", { currentUserObj, postsObj });
 });
@@ -266,14 +231,9 @@ app.get("/about", authUser, async (req, res) => {
   let postsObj = posts.map((post) => post.toObject());
   const currentUser = await User.findById(req.user._id);
   const currentUserObj = currentUser.toObject();
-  postsObj.forEach((post) => {
-    const daySince = parseInt(
-      (new Date() - new Date(post.createdAt)) / 86400000
-    );
-    post.daySince = daySince;
-  });
 
-  await decoratePost(posts, postsObj);
+  daysAgo(postsObj);
+  await decoratePost(postsObj, req.user._id);
 
   res.render("aboutMe", {
     user: req.user.toObject(),
@@ -373,3 +333,5 @@ con.on("open", () => {
 server.listen(port, () => {
   console.log(`Server is up on port ${port}`);
 });
+
+//////--------------------------------------------
